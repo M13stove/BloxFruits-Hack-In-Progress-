@@ -1,0 +1,46 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+-- Check if the player is in the correct game (Prison Life)
+if game.PlaceId == 2753915549 then
+    function Script()
+        local Window = Library.CreateLib("PL Hack 🙈", "DarkTheme")
+        
+        local Home = Window:NewTab("Home")
+        
+        local HomeSection = Home:NewSection("Player Hacks")
+
+        -- WalkSpeed Slider
+        HomeSection:NewSlider("WalkSpeed", "Click Me To Increase Your WalkSpeed!", 250, 16, function(s)
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+        end)
+
+        -- JumpPower Slider
+        HomeSection:NewSlider("JumpPower", "Click Me To Increase Your JumpPower!", 250, 16, function(s)
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+        end)
+
+        -- Infinite Jump Toggle
+        HomeSection:NewToggle("Infinite Jump", "Toggle Infinite Jump", function(state)
+            if state then
+                -- Infinite Jump enabled
+                _G.InfiniteJump = true
+                game:GetService("UserInputService").JumpRequest:Connect(function()
+                    if _G.InfiniteJump then
+                        game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+                    end
+                end)
+                print("Infinite Jump Enabled")
+            else
+                -- Infinite Jump disabled
+                _G.InfiniteJump = false
+                print("Infinite Jump Disabled")
+            end
+        end)
+    end
+
+    -- Run the script if the player is in the right game
+    Script()
+else
+    -- Notify if the player is not in the correct game
+    print("This Place Does Not Work With Our Script.")
+end
